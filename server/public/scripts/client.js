@@ -1,8 +1,8 @@
-console.log('we're here for ya!);
+console.log('we\'re here for ya');
 
-$(documents).ready(onReady);
+$(document).ready(onReady);
 
-function onReady{
+function onReady(){
     console.log('on READY');
 }
 
