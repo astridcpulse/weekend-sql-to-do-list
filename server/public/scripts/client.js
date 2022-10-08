@@ -5,6 +5,7 @@ $(document).ready(onReady);
 
 function onReady(){
     console.log('on READY'); //test
+    getFullList();
     $('#submitBtn').on('click', submitTask);
 }
 
@@ -20,7 +21,7 @@ function submitTask(){
     }
     $.ajax({
         type: 'POST', 
-        url: '/task',
+        url: '/tasks',
         data: newTask
     }).then((response) => {
         getFullList();
@@ -29,19 +30,27 @@ function submitTask(){
     });
 }
 
-function postNewTask(newTask) {
-    $.ajax({
-        method: 'POST', 
-        url: '/task',
-        data: newTask
-    }).then((response) => {
-        getFullList();
-    }).catch((err) => {
-        console.log('error in POST', err);
-    });
 
-}
 
 function getFullList(){
     console.log('gonna display full list')
+    $('#taskTable').empty();
+
+    $.ajax({
+        method: 'GET',
+        url: '/tasks',
+    }).then((response) =>{
+        //TO DO: Complete cant take a ? in its calling for html. Rename table
+        console.log(response);
+        for(let x of response) {
+            $('#taskTable').append(`
+                <tr>
+                    <td>${x.name}</td>
+                    <td>${x.notes}</td>
+                    <td>${x.urgency}</td>
+                    <td>${x.complete}</td> 
+                </tr>
+            `);
+        }
+    });
 }

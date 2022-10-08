@@ -29,4 +29,15 @@ taskRouter.post('/', (req, res)=> {
     });
 });
 
+taskRouter.get('/', (req, res) => {
+    pool.query(`
+        SELECT * FROM "tasks" ORDER BY "id";
+    `).then((dbRes) =>{
+        res.send(dbRes.rows);
+    }).catch((err) => {
+        console.log('GET tasks failed', err);
+        res.sendStatus(500);
+    });
+});
+
 module.exports = taskRouter;
