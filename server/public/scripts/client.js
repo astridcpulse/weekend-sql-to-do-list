@@ -1,4 +1,3 @@
-const { response } = require("express");
 
 console.log('we\'re here for ya'); //test
 
@@ -13,12 +12,36 @@ function onReady(){
 function submitTask(){
     console.log('click function working'); //test
 
-    let newTask ={
+    let newTask = {
         name: $('#taskIn').val(),
         notes: $('#notesIn').val(),
         urge: $('#urgentIn').val(),
         comp: $('#completeIn').val()
     }
-    postNewTask(newTask);
+    $.ajax({
+        type: 'POST', 
+        url: '/task',
+        data: newTask
+    }).then((response) => {
+        getFullList();
+    }).catch((err) => {
+        console.log('error in POST', err);
+    });
 }
 
+function postNewTask(newTask) {
+    $.ajax({
+        method: 'POST', 
+        url: '/task',
+        data: newTask
+    }).then((response) => {
+        getFullList();
+    }).catch((err) => {
+        console.log('error in POST', err);
+    });
+
+}
+
+function getFullList(){
+    console.log('gonna display full list')
+}
