@@ -10,6 +10,28 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1>Hey Baybee</h1>
+    <section id="addTask">
+        <h1>TO DO LIST</h1>
+        <input type ="text" id="taskIn" value="" placeholder="Task Name" required>
+        <input type ="text" id="notesIn" value="" placeholder="Notes">
+        <input type ="number" id="urgentIn" value="" placeholder="Urgency" required>
+        <input type ="text" id="completeIn" value="" placeholder="Completed?" required>
+        <button type="button" id="submitBtn">Submit Task</button>
+    </section>
+    <section id="">
+        <table>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Notes</th>
+                <th>Urgency</th>
+                <th>Complete?</th>
+                <th>Delete Task</th>
+              </tr>
+            </thead>
+            <tbody id="taskTable">
+            </tbody>
+          </table>
+    </section>
 </body>
 </html>

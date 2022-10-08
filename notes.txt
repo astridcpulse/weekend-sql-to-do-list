@@ -27,3 +27,13 @@ CSS
 [] change font
 [] background color of tasks
     ------USE BOOTSTRAP (if time) --------
+
+
+
+
+
+    wire frame:
+    DATA TABLE
+
+    | TASK NAME text| TASK NOTES text | URGENCY num | COMPLETED? boolean | <BUTTON COMPLETE> | <BUTTON DELETE>
+    |
