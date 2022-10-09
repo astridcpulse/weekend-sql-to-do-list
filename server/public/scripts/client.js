@@ -89,9 +89,8 @@ function render(response){
                 <td>${x.notes}</td>
                 <td>${x.urgency}</td>
                 <td>
-                    ${x.complete}
                     <button id=compBtn data-id=${x.id}> 
-                        Finished? 
+                        Cross Off! 
                     </button>
                 </td> 
                 <td> 
@@ -103,6 +102,7 @@ function render(response){
         `);
         if(x.complete === true){
             $(`#row${x.id}`).addClass('greenStatus');
+            
         }
     }
 }
