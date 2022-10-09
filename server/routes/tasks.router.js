@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const taskRouter = express.Router();
 
-
+// POST endpoint
 taskRouter.post('/', (req, res)=> {
     let queryText = `
         INSERT INTO "tasks"
@@ -28,7 +28,23 @@ taskRouter.post('/', (req, res)=> {
             res.sendStatus(500);
     });
 });
+// PUT endpoint
+taskRouter.put('/:id', (req, res) => {
+    taskId = req.params.id;
+    console.log('taskID', taskId);
 
+    pool.query(`
+        SELECT * FROM "tasks" ORDER BY "id";
+    `).then((dbRes) =>{
+        res.send(dbRes.rows);
+    }).catch((err) => {
+        console.log('PUT tasks failed', err);
+        res.sendStatus(500);
+    });
+});
+
+
+// GET endpoint
 taskRouter.get('/', (req, res) => {
     pool.query(`
         SELECT * FROM "tasks" ORDER BY "id";

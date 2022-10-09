@@ -10,7 +10,7 @@ function onReady(){
     $('#taskTable').on('click', '#compStatus', completeTask);
 }
 
-// submit new task on button click to data base function
+// POST submit new task on button click to data base function
 function submitTask(){
     console.log('click function working'); //test
 
@@ -30,9 +30,22 @@ function submitTask(){
         console.log('error in POST', err);
     });
 }
-// PUT function
+// PUT update list with 
+function completeTask(){
+    let taskId = $(this).data('id');
+    console.log(taskId);
 
-
+    $.ajax({
+        method: 'PUT', 
+        url: `/tasks/${taskId}`,
+        data: {status: taskId}
+    }).then((response) =>{
+        getFullList();
+    }).catch((err) => {
+        console.log('error in PUT', err);
+    });
+}
+// GET display the full list of tasks 
 function getFullList(){
     console.log('gonna display full list')
     $('#taskTable').empty();
@@ -63,5 +76,7 @@ function getFullList(){
                 </tr>
             `);
         }
-    });
+    }).catch((err) => {
+        console.log('error in GET', err);
+    });;
 }

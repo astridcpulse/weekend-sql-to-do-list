@@ -5,20 +5,20 @@ TODO FOR THE TODO ASSIGNMENT
 []
 
 DOM
-[] must refresh after each task completed
+[x] must refresh after each task completed
     - .prepend (show at top of List)    
-[] DELETE button
+[x] DELETE button
 [] COMPLETE button
     - .addClass on click to change the color of task
     - update database to show COMPLETE
 []
 
 DATABASE
-[] Tasks should be stored in database
+[x] Tasks should be stored in database
 [] DELETE and COMPLETE buttons will update database accordingly
 
 SERVER/ROUTER
-[] POST for adding tasks
+[x] POST for adding tasks
 [] DELETE for deleting tasks
 [] PUT (update) for mark complete
 
