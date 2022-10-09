@@ -6,7 +6,7 @@ const taskRouter = express.Router();
 taskRouter.post('/', (req, res)=> {
     let queryText = `
         INSERT INTO "tasks"
-            ("name", "notes", "urgency", "complete?")
+            ("name", "notes", "urgency", "complete")
         VALUES 
             ($1, $2, $3, $4);
         `;
@@ -26,6 +26,17 @@ taskRouter.post('/', (req, res)=> {
         .catch((err) => {
             console.log(`error sending new task`, err);
             res.sendStatus(500);
+    });
+});
+
+taskRouter.get('/', (req, res) => {
+    pool.query(`
+        SELECT * FROM "tasks" ORDER BY "id";
+    `).then((dbRes) =>{
+        res.send(dbRes.rows);
+    }).catch((err) => {
+        console.log('GET tasks failed', err);
+        res.sendStatus(500);
     });
 });
 
