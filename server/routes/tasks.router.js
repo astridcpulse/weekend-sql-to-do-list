@@ -6,7 +6,7 @@ const taskRouter = express.Router();
 taskRouter.post('/', (req, res)=> {
     let queryText = `
         INSERT INTO "tasks"
-            ("name", "notes", "urgency", "complete?")
+            ("name", "notes", "urgency", "complete")
         VALUES 
             ($1, $2, $3, $4);
         `;
