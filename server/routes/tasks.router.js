@@ -33,12 +33,17 @@ taskRouter.put('/:id', (req, res) => {
     taskId = req.params.id;
     console.log('taskID', taskId);
 
-    pool.query(`
-        SELECT * FROM "tasks" ORDER BY "id";
-    `).then((dbRes) =>{
-        res.send(dbRes.rows);
+    sqlText = `UPDATE "tasks"
+                SET "complete" = NOT "complete"
+                WHERE "id" = $1;
+            `;
+    sqlParams = [taskId];
+
+    pool.query(sqlText, sqlParams)
+    .then((dbRes) =>{
+        res.sendStatus(203);
     }).catch((err) => {
-        console.log('PUT tasks failed', err);
+        console.log('PUT update failed', err);
         res.sendStatus(500);
     });
 });
