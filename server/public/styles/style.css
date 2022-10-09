@@ -2,6 +2,7 @@ body {
     background-color: rgb(187, 218, 246);
 }
 
-.redStatus {
-    background-color: red;
+.greenStatus {
+    background-color:green;
+    text-decoration: line-through;
 }

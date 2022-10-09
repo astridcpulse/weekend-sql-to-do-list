@@ -7,9 +7,8 @@ function onReady(){
     console.log('on READY'); //test
     getFullList();
     $('#submitBtn').on('click', submitTask);
-    $('#taskTable').on('click', '#compStatus', completeTask);
+    $('#taskTable').on('click', '#compBtn', completeTask);
     $('#taskTable').on('click', '#dltBtn', deleteTask);
-
 }
 
 // POST submit new task on button click to data base function
@@ -72,33 +71,38 @@ function getFullList(){
         method: 'GET',
         url: '/tasks',
     }).then((response) => {
-        //TO DO: Complete cant take a ? in its calling for html. Rename table
         console.log(response);
-        for(let x of response) {
-            console.log(x.complete);
-            // if(x.complete === true){
-            //     $('#taskTable').addClass('redStatus');
-            // }
-            $('#taskTable').append(`
-                <tr>
-                    <td>${x.name}</td>
-                    <td>${x.notes}</td>
-                    <td>${x.urgency}</td>
-                    <td id=compStatus data-id=${x.id}>
-                        ${x.complete}
-                        <button class="MTT"> 
-                            Finished? 
-                        </button>
-                    </td> 
-                    <td> 
-                        <button id= dltBtn data-id=${x.id}> 
-                            Delete 
-                        </button>
-                    </td>
-                </tr>
-            `);
-        }
+        render(response);
     }).catch((err) => {
         console.log('error in GET', err);
     });
+}
+
+
+function render(response){
+    for(let x of response) {
+        console.log(x.complete);
+        
+        $('#taskTable').append(`
+            <tr id=row${x.id}>
+                <td>${x.name}</td>
+                <td>${x.notes}</td>
+                <td>${x.urgency}</td>
+                <td>
+                    ${x.complete}
+                    <button id=compBtn data-id=${x.id}> 
+                        Finished? 
+                    </button>
+                </td> 
+                <td> 
+                    <button id= dltBtn data-id=${x.id}> 
+                        Delete 
+                    </button>
+                </td>
+            </tr>
+        `);
+        if(x.complete === true){
+            $(`#row${x.id}`).addClass('greenStatus');
+        }
+    }
 }
