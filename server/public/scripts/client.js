@@ -8,6 +8,8 @@ function onReady(){
     getFullList();
     $('#submitBtn').on('click', submitTask);
     $('#taskTable').on('click', '#compStatus', completeTask);
+    $('#taskTable').on('click', '#dltBtn', deleteTask);
+
 }
 
 // POST submit new task on button click to data base function
@@ -45,6 +47,22 @@ function completeTask(){
         console.log('error in PUT', err);
     });
 }
+
+// DELETE button function
+function deleteTask(){
+    let taskId = $(this).data('id');
+
+    $.ajax({
+        method: 'DELETE',
+        url: `/tasks/${taskId}`
+    }).then((response) =>{
+        console.log('task deleted');
+        getFullList();
+    }).catch((err) => {
+        console.log('error in PUT', err);
+    });
+}
+
 // GET display the full list of tasks 
 function getFullList(){
     console.log('gonna display full list')

@@ -4,13 +4,13 @@ const taskRouter = express.Router();
 
 // POST endpoint
 taskRouter.post('/', (req, res)=> {
-    let queryText = `
+    const sqlText = `
         INSERT INTO "tasks"
             ("name", "notes", "urgency", "complete")
         VALUES 
             ($1, $2, $3, $4);
         `;
-    let sqlParams = [
+    const sqlParams = [
         req.body.name,
         req.body.notes, 
         req.body.urge, 
@@ -19,25 +19,25 @@ taskRouter.post('/', (req, res)=> {
         
         console.log('sqlParams', sqlParams)
 
-    pool.query(queryText, sqlParams)
-        .then((response) => {
+    pool.query(sqlText, sqlParams)
+        .then((dbRes) => {
             res.sendStatus(201);
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log(`error sending new task`, err);
             res.sendStatus(500);
     });
 });
+
 // PUT endpoint
 taskRouter.put('/:id', (req, res) => {
-    taskId = req.params.id;
+    const taskId = req.params.id;
     console.log('taskID', taskId);
 
-    sqlText = `UPDATE "tasks"
+    const sqlText = `UPDATE "tasks"
                 SET "complete" = NOT "complete"
                 WHERE "id" = $1;
             `;
-    sqlParams = [taskId];
+    const sqlParams = [taskId];
 
     pool.query(sqlText, sqlParams)
     .then((dbRes) =>{
@@ -48,6 +48,20 @@ taskRouter.put('/:id', (req, res) => {
     });
 });
 
+// DELETE ENDPOINT
+taskRouter.delete('/:id', (req, res) =>{
+    const taskId = req.params.id;
+    const sqlText = 'DELETE FROM "tasks" WHERE "id" = $1'
+    const sqlParams = [taskId];
+
+    pool.query(sqlText, sqlParams)
+        .then((dbRes) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            console.log('delete koala failed', err);
+            res.sendStatus(500);
+        });
+});
 
 // GET endpoint
 taskRouter.get('/', (req, res) => {
