@@ -71,10 +71,14 @@ function getFullList(){
     $.ajax({
         method: 'GET',
         url: '/tasks',
-    }).then((response) =>{
+    }).then((response) => {
         //TO DO: Complete cant take a ? in its calling for html. Rename table
         console.log(response);
         for(let x of response) {
+            console.log(x.complete);
+            // if(x.complete === true){
+            //     $('#taskTable').addClass('redStatus');
+            // }
             $('#taskTable').append(`
                 <tr>
                     <td>${x.name}</td>
@@ -96,5 +100,5 @@ function getFullList(){
         }
     }).catch((err) => {
         console.log('error in GET', err);
-    });;
+    });
 }

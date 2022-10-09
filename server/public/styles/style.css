@@ -1,3 +1,7 @@
 body {
-    background-color: aliceblue;
+    background-color: rgb(187, 218, 246);
+}
+
+.redStatus {
+    background-color: red;
 }
